@@ -7,8 +7,14 @@ import (
 )
 
 // Given the data in the format [row][column] return a
-// string with a grid.
+// string with a grid using | for both the delimiter and outer characters.
 func Table(data [][]string, header bool) string {
+	return CustomTable(data, header, "|", "|")
+}
+
+// Given the data in the format [row][column] return a
+// string with a grid using specified delimter and frame characters.
+func CustomTable(data [][]string, header bool, delimiter, frame string) string {
 	columnEsc := make([]string, 0)
 	var result string
 
@@ -19,7 +25,10 @@ func Table(data [][]string, header bool) string {
 	}
 
 	// Generate a format string for the row
-	rowFmt := fmt.Sprintf("|%s|\n", strings.Join(columnEsc, "|"))
+	rowFmt := fmt.Sprintf(
+		"%s%s%s\n", frame,
+		strings.Join(columnEsc, delimiter),
+		frame)
 
 	var rowStr string
 	for i, row := range data {
