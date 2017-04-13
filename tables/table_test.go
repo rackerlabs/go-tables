@@ -36,6 +36,21 @@ func TestTable_withoutHeader(t *testing.T) {
 	}
 }
 
+func TestCustomTable(t *testing.T) {
+	row1 := []string{"foo", "foobar"}
+	row2 := []string{"bar", "foo"}
+	sampleData := [][]string{row1, row2}
+
+	expect := `/foo,foobar/
+/bar,foo   /
+`
+
+	got := CustomTable(sampleData, false, ",", "/")
+	if got != expect {
+		t.Errorf("Expected:\n %s, Got:\n %s", expect, got)
+	}
+}
+
 func TestExtractColumn(t *testing.T) {
 	row1 := []string{"foo", "foobar"}
 	row2 := []string{"bar", "barfoo"}
